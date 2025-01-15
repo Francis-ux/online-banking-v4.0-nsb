@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Overview</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .account-card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .account-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .account-card .card-header img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .account-card .balance {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .account-card .card-body {
+            background: white;
+            color: black;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .account-card .card-body .info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .account-card .card-body .info span {
+            font-size: 1rem;
+        }
+
+        .account-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .account-card .card-footer a {
+            border-radius: 5px;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: white;
+            background-color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .account-card {
+                padding: 10px;
+            }
+
+            .account-card .balance {
+                font-size: 1.5rem;
+            }
+
+            .account-card .card-body .info span {
+                font-size: 0.875rem;
+            }
+
+            .account-card .card-footer a {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                <div class="account-card">
+                    <div class="card-header">
+                        <div class="user-info">
+                            <img src="https://via.placeholder.com/40" alt="User Image">
+                            <span>Bshsh Hshdh</span>
+                        </div>
+                        <div class="add-btn">
+                            <button class="btn btn-primary btn-sm">+</button>
+                        </div>
+                    </div>
+                    <div class="balance">
+                        £20,000.00
+                    </div>
+                    <div class="card-body">
+                        <div class="info">
+                            <span>Inflow</span>
+                            <span class="text-success">£20,000.00</span>
+                        </div>
+                        <div class="info">
+                            <span>Outflow</span>
+                            <span class="text-danger">£0.00</span>
+                        </div>
+                        <div class="info">
+                            <span>Loan Balance:</span>
+                            <span>£0.00</span>
+                        </div>
+                        <div class="info">
+                            <span>Savings Balance:</span>
+                            <span>£0.00</span>
+                        </div>
+                        <div class="info">
+                            <span>Current Balance:</span>
+                            <span>£20,000.00</span>
+                        </div>
+                        <div class="info">
+                            <span>Last Login Date:</span>
+                            <span class="text-danger">2024-06-25 08:35:01</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#">View Details</a>
+                        <a href="#">Account Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

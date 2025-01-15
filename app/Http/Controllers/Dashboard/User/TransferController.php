@@ -105,12 +105,22 @@ class TransferController extends Controller
 
         $transfer = Transfer::where('reference_id', $referenceId)->first();
 
+        if ($transfer->type == 'Wire Transfer') {
+            // Check if receiver account exists
+            $receiverUser = User::where('account_number', session()->get('receiverAccountNumber'))->first();
+            if (!$receiverUser) {
+                return redirect()->back()->with('error', 'Account not found');
+            }
+        }
+
         $description = '';
 
-        if ($transfer->type == "Electronic Transfer") {
+        if ($transfer->type == "Domestic Transfer") {
             $description = 'Electronic TF: ' . $transfer->withdrawal_method . '/';
+        } elseif ($transfer->type == "International Transfer") {
+            $description = 'International TF: ' . $transfer->bank_name . '/' . $transfer->account_name;
         } else {
-            $description = 'Direct TF: ' . $transfer->bank_name . '/' . $transfer->account_name;
+            $description = 'Wire TF: ' . $transfer->bank_name . '/' . $transfer->account_name;
         }
 
         if ($user->should_transfer_fail == ShouldTransferFail::No->value) {
@@ -147,6 +157,41 @@ class TransferController extends Controller
             ];
 
             Notification::create($notificationData);
+
+            if ($transfer->type == 'Wire Transfer') {
+                // Receiver
+                $receiverUser->balance += $transfer->amount;
+                $receiverUser->save();
+
+                $receiverTransactionData = [
+                    'uuid'          => Str::uuid(),
+                    'user_id'       => $receiverUser->id,
+                    'type'          => 'CREDIT',
+                    'description'   => $transfer->description,
+                    'amount'        => $transfer->amount,
+                    'current_balance' => $receiverUser->balance,
+                    'date'          => date('Y-m-d'),
+                    'time'          => date('H:i:s'),
+                    'reference_id'  => $transfer->reference_id,
+                    'status'        => TransactionStatus::SUCCESS->value
+                ];
+
+                Transaction::create($receiverTransactionData);
+
+                $receiverNotificationMessage = 'You have received a transfer of ' . currency($receiverUser->currency) . formatAmount($receiverTransactionData['amount']) . ' from ' . $user->first_name . ' ' . $user->last_name . '. Your new balance is ' . currency($receiverUser->currency) . formatAmount($receiverTransactionData['current_balance']) . '. Thank you for using ' . config('app.name') . '.';
+
+                $receiverNotificationData = [
+                    'uuid'          => Str::uuid(),
+                    'type'          => $receiverTransactionData['type'],
+                    'notification'  => $receiverNotificationMessage,
+                    'user_id'       => $receiverUser->id,
+                ];
+
+                Notification::create($receiverNotificationData);
+
+                session()->forget('receiverAccountNumber');
+                // Receiver End
+            }
 
             $transaction = Transaction::where('reference_id', $transfer->reference_id)->first();
 

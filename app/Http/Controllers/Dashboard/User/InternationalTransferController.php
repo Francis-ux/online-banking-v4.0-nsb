@@ -2,26 +2,30 @@
 
 namespace App\Http\Controllers\Dashboard\User;
 
+use App\Enum\AccountState;
 use App\Models\User;
 use App\Models\Transfer;
-use App\Enum\AccountState;
 use Illuminate\Support\Str;
 use App\Models\TransferCode;
 use Illuminate\Http\Request;
 use App\Enum\IsAccountVerified;
-use App\Models\VerificationCode;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
-class ElectronicTransferController extends Controller
+class InternationalTransferController extends Controller
 {
     public function store(Request $request)
     {
         $request->validate([
-            'withdrawal_method' => ['required', 'max:255'],
-            'amount'            => ['required','numeric'],
-            'beneficiary'       => ['required',  'max:255'],
-            'transfer_pin'      => ['required','numeric'],
+            'bank_name'         => ['required', 'string', 'max:255'],
+            'account_number'    => ['required',  'numeric'],
+            'account_name'      => ['required', 'string', 'max:255'],
+            'description'       => ['nullable'],
+            'amount'            => ['required', 'numeric'],
+            'swift_code'        => ['nullable',  'max:255'],
+            'iban_code'         => ['nullable',  'max:255'],
+            'routing_number'    => ['nullable',  'max:255'],
+            'transfer_pin'      => ['required', 'numeric'],
         ]);
 
         $user = User::findOrFail(auth('user')->user()->id);
@@ -51,11 +55,16 @@ class ElectronicTransferController extends Controller
         $data = [
             'uuid'              => Str::uuid(),
             'user_id'           => $user->id,
+            'bank_name'         => $request->bank_name,
+            'account_number'    => $request->account_number,
+            'account_name'      => $request->account_name,
             'amount'            => $request->amount,
-            'withdrawal_method' => $request->withdrawal_method,
-            'beneficiary'       => $request->beneficiary,
+            'description'       => $request->description,
+            'swift_code'        => $request->swift_code,
+            'iban_code'         => $request->iban_code,
+            'routing_number'    => $request->routing_number,
             'reference_id'      => $referenceId,
-            'type'              => 'Electronic Transfer',
+            'type'              => 'International Transfer',
         ];
 
         $transferCode = new TransferCode();

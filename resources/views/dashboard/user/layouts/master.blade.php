@@ -5,6 +5,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <!-- Description -->
         <meta
             content="Online Banking, Internet Banking, Secure Banking, Financial Management, Fund Transfer, Bill Payments, 24/7 Access, Digital Banking, Personalized Banking"
@@ -27,6 +30,7 @@
         <!-- Style-->
         <link rel="stylesheet" href="/dashboard/resources/css/style.css">
         <link rel="stylesheet" href="/dashboard/resources/css/skin_color.css">
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         @include('partials.google_translator')
     </head>
 
@@ -46,6 +50,7 @@
         </div>
         <!-- ./wrapper -->
         <!-- Vendor JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="/dashboard/resources/js/vendors.min.js"></script>
         <script src="/dashboard/resources/js/pages/chat-popup.js"></script>
         <script src="/dashboard/resources/assets/icons/feather-icons/feather.min.js"></script>

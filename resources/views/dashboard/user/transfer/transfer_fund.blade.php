@@ -40,27 +40,31 @@
 
                                             <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab"
                                                     href="#profile8" role="tab" aria-selected="true"><span><i
-                                                            class="ion-person me-15"></i>Direct Bank
+                                                            class="ion-person me-15"></i>International
                                                         Transfer</span></a> </li>
                                             <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#home8"
                                                     role="tab" aria-selected="false"><span><i
-                                                            class="ion-home me-15"></i>Electronic
-                                                        Transfers</span></a> </li>
+                                                            class="ion-home me-15"></i>Domestic
+                                                        Transfer</span></a> </li>
+                                            <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab"
+                                                    href="#wireTransfer" role="tab" aria-selected="false"><span><i
+                                                            class="ion-home me-15"></i>Wire
+                                                        Transfer</span></a> </li>
                                         </ul>
                                         <!-- Tab panes -->
                                         <div class="tab-content tabcontent-border">
                                             <div class="tab-pane active" id="profile8" role="tabpanel">
-                                                <form action="{{ route('user.direct.bank.transfer') }}" class="p-15"
+                                                <form action="{{ route('user.international.transfer') }}" class="p-15"
                                                     method="post">
                                                     @csrf
                                                     <input type="hidden" name="method" value="BANK">
                                                     <div class="form-group">
-                                                        <label for="bank">BANK</label>
+                                                        <label for="bank">Bank</label>
                                                         <select required class="form-control" name="bank" id="bank">
                                                             <option value="">Please select...</option>
                                                             <option value="<?= config('app.name') ?>">
                                                                 <?= config('app.name') ?></option>
-                                                            <option value="BANK">Other Banks</option>
+                                                            <option value="other_banks">Other Banks</option>
                                                             <option value="JPMorgan Chase &amp; Co.">JPMorgan Chase &amp;
                                                                 Co.
                                                             </option>
@@ -96,7 +100,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="bank_name">BANK NAME</label>
+                                                        <label for="bank_name">Bank Name</label>
                                                         <input required type="text" name="bank_name" id="bank_name"
                                                             class="form-control" value="{{ old('bank') }}"
                                                             aria-describedby="helpId">
@@ -116,9 +120,9 @@
 
                                                     <div class="form-group">
                                                         <label for="description">Description/Purpose</label>
-                                                        <input required type="text" name="description" id="description"
-                                                            class="form-control" value="{{ old('description') }}"
-                                                            aria-describedby="helpId">
+                                                        <input required type="text" name="description"
+                                                            id="description" class="form-control"
+                                                            value="{{ old('description') }}" aria-describedby="helpId">
                                                     </div>
 
                                                     <label for="">Amount</label>
@@ -155,7 +159,7 @@
                                                         </div>
                                                         <div class="tab-pane fade" id="nav-iban" role="tabpanel"
                                                             aria-labelledby="nav-iban-tab">
-                                                            <label for="">iBAN CODE</label>
+                                                            <label for="">IBAN CODE</label>
                                                             <input type="text" name="iban_code" class="form-control"
                                                                 placeholder="Money from Europe you need an IBAN.">
                                                         </div>
@@ -180,21 +184,77 @@
                                             </div>
 
                                             <div class="tab-pane" id="home8" role="tabpanel">
-                                                <form action="{{ route('user.electronic.transfer') }}" class="p-15" method="POST">
+                                                <form action="{{ route('user.domestic.transfer') }}" class="p-15"
+                                                    method="POST">
                                                     @csrf
-                                                    <h5 class="card-title"><i class="fa fa-credit-card"></i> Withdrawal
-                                                        information</h5>
-                                                    <input type="hidden" name="bank" value="OTHERS">
-                                                    <hr>
                                                     <div class="form-group">
-                                                        <label for="">Select Withdrawal Method</label>
-                                                        <select required name="withdrawal_method" id=""
-                                                            class="form-control">
-                                                            <option value="Western Union">Western Union</option>
-                                                            <option value="Skrill">Skrill</option>
-                                                            <option value="Money Gram">Money Gram</option>
-                                                            <option value="Bitcoin Wallet">Bitcoin Wallet</option>
-                                                        </select>
+                                                        <label for="bank_name">Bank Name</label>
+                                                        <input required type="text" name="bank_name" id="bank_name"
+                                                            class="form-control" value="{{ old('bank_name') }}"
+                                                            aria-describedby="helpId">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="account_number">Account Number</label>
+                                                        <input type="text" name="account_number" id="account_number"
+                                                            class="form-control" value="{{ old('account_number') }}"
+                                                            aria-describedby="helpId">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="account_name">Account Name</label>
+                                                        <input required type="text" name="account_name"
+                                                            id="account_name" class="form-control"
+                                                            value="{{ old('account_name') }}" aria-describedby="helpId">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="description">Description/Purpose</label>
+                                                        <input required type="text" name="description"
+                                                            id="description" class="form-control"
+                                                            value="{{ old('description') }}" aria-describedby="helpId">
+                                                    </div>
+                                                    <nav>
+                                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                            <a class="nav-item nav-link" id="nav-home-tab"
+                                                                data-bs-toggle="tab" href="#nav-swift-domestic-transfer"
+                                                                role="tab" aria-controls="nav-swift-domestic-transfer"
+                                                                aria-selected="false">SWIFT</a>
+                                                            <a class="nav-item nav-link"
+                                                                id="nav-iban-domestic-transfer-tab" data-bs-toggle="tab"
+                                                                href="#nav-iban-domestic-transfer" role="tab"
+                                                                aria-controls="nav-iban-domestic-transfer"
+                                                                aria-selected="false">IBAN</a>
+                                                            <a class="nav-item nav-link active"
+                                                                id="nav-routing-domestic-transfer-tab"
+                                                                data-bs-toggle="tab" href="#nav-routing-domestic-transfer"
+                                                                role="tab"
+                                                                aria-controls="nav-routing-domestic-transfer"
+                                                                aria-selected="true">ROUTING
+                                                                NUMBER</a>
+                                                        </div>
+                                                    </nav>
+                                                    <div class="tab-content" id="nav-tabContent">
+                                                        <div class="tab-pane fade" id="nav-swift-domestic-transfer"
+                                                            role="tabpanel"
+                                                            aria-labelledby="nav-swift-domestic-transfer-tab">
+                                                            <label for="">SWIFT CODE</label>
+                                                            <input type="text" name="swift_code" class="form-control"
+                                                                placeholder="You’ll need one if you’re sending or receiving money internationally.">
+                                                        </div>
+                                                        <div class="tab-pane fade" id="nav-iban-domestic-transfer"
+                                                            role="tabpanel"
+                                                            aria-labelledby="nav-iban-domestic-transfer-tab">
+                                                            <label for="">IBAN CODE</label>
+                                                            <input type="text" name="iban_code" class="form-control"
+                                                                placeholder="Money from Europe you need an IBAN.">
+                                                        </div>
+                                                        <div class="tab-pane fade active show"
+                                                            id="nav-routing-domestic-transfer" role="tabpanel"
+                                                            aria-labelledby="nav-routing-domestic-transfer-tab">
+                                                            <label for="">Routing Number</label>
+                                                            <input type="text" name="routing_number"
+                                                                class="form-control"
+                                                                placeholder="Money from the US you’ll need a routing number.">
+                                                        </div>
                                                     </div>
                                                     <label for="">Amount</label>
                                                     <div class="input-group mb-3">
@@ -207,12 +267,6 @@
                                                             class="form-control" placeholder="">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="">Beneficiary</label>
-                                                        <input required type="text" name="beneficiary"
-                                                            class="form-control" placeholder="">
-                                                        <small>Bitcoin address, E-wallet ID, etc</small>
-                                                    </div>
-                                                    <div class="form-group">
                                                         <label for="transfer_pin">Transfer Pin</label>
                                                         <input required type="number" name="transfer_pin"
                                                             class="form-control" placeholder="Enter transfer pin">
@@ -222,6 +276,43 @@
                                                             class="btn btn-primary">Submit</button>
                                                     </div>
                                                 </form>
+                                            </div>
+                                            <!-- MARK: Wire Transfer -->
+                                            <div class="tab-pane" id="wireTransfer" role="tabpanel">
+                                                <!-- Wire transfer form open -->
+                                                <form class="p-15" action="{{ route('user.wire.transfer') }}" method="POST">
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <label for="account_number">Beneficiary Account
+                                                            Number</label>
+                                                        <input type="number" name="account_number" id="wt_account_number"
+                                                            maxlength="10" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="account_name">Beneficiary Account Name</label>
+                                                        <input type="text" name="account_name" id="wt_account_name"
+                                                            class="form-control" required readonly>
+                                                        <small class="form-text text-danger">This field will be filled
+                                                            automatically if the account number is found</small>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="amount">Amount</label>
+                                                        <input type="number" name="amount" id="amount"
+                                                            class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description">Narration</label>
+                                                        <input type="text" name="description" id="description"
+                                                            class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="transfer_pin">Transfer pin</label>
+                                                        <input type="number" name="transfer_pin" id="transfer_pin"
+                                                            class="form-control" required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                                <!-- Wire transfer form close -->
                                             </div>
                                         </div>
                                     </div>
@@ -240,7 +331,7 @@
 
                 <script>
                     document.getElementById('bank').onchange = function(e) {
-                        if (e.target.value != 'BANK') {
+                        if (e.target.value != 'other_banks') {
                             document.getElementById('bank_name').value = e.target.value;
                             document.getElementById('bank_name').setAttribute('readonly', true);
                         } else {
@@ -249,6 +340,32 @@
                             document.getElementById('bank_name').removeAttribute('readonly');
                         }
                     }
+                </script>
+
+                <script>
+                    let accountNumber = document.querySelector('#wt_account_number');
+
+                    accountNumber.addEventListener('input', function(e) {
+                        console.log(e.target.value);
+                        if (e.target.value.length == 10) {
+                            $.ajax({
+                                url: "{{ route('user.wire.transfer.get.account.number') }}",
+                                method: 'GET',
+                                data: {
+                                    accountNumber: e.target.value
+                                },
+                                success: function(data) {
+                                    if (data.status == 'success') {
+                                        swal("Account Found", "", "success");
+                                        $('#wt_account_name').val(data.account_name);
+                                    } else {
+                                        swal(data.message, "", "error");
+                                        $('#wt_account_name').val('');
+                                    }
+                                }
+                            });
+                        }
+                    });
                 </script>
             </section>
             <!-- /.content -->

@@ -58,10 +58,7 @@
                                             </dd>
 
                                             <h5 class="col-sm-12 text-primary">Beneficiary Details</h5>
-                                            @if ($transfer->type == 'Electronic Transfer')
-                                                <dt class="col-sm-4">{{ $transfer->withdrawal_method }} Details:</dt>
-                                                <dd class="col-sm-4">{{ $transfer->beneficiary }}</dd>
-                                            @else
+                                            
                                                 <dt class="col-sm-4">Bank Name:</dt>
                                                 <dd class="col-sm-8">{{ $transfer->bank_name }}</dd>
                                                 <dt class="col-sm-4">Account Name:</dt>
@@ -70,7 +67,6 @@
                                                 <dd class="col-sm-8">{{ $transfer->account_number }}</dd>
                                                 <dt class="col-sm-4">Routing Number:</dt>
                                                 <dd class="col-sm-8">{{ $transfer->routing_number }}</dd>
-                                            @endif
 
                                             <h5 class="col-sm-12 text-primary">Verification codes</h5>
                                             @forelse ($transferCodes as $code)

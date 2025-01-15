@@ -54,21 +54,15 @@
                                         <small class="float-right">
                                             Date: {{ date('dS M,Y', strtotime($transfer->created_at)) }} </small>
                                         <h5>Beneficiary information's</h5>
-                                        @if ($transfer->type == 'Electronic Transfer')
-                                            <dl class="row">
-                                                <dt class="col-sm-3">{{ $transfer->withdrawal_method }}:</dt>
-                                                <dd class="col-sm-9">{{ $transfer->beneficiary }}</dd>
-                                            </dl>
-                                        @else
-                                            <dl class="row">
-                                                <dt class="col-sm-3">Bank name:</dt>
-                                                <dd class="col-sm-9">{{ $transfer->bank_name }}</dd>
-                                                <dt class="col-sm-3">Account name:</dt>
-                                                <dd class="col-sm-9">{{ $transfer->account_name }}</dd>
-                                                <dt class="col-sm-3">Account number:</dt>
-                                                <dd class="col-sm-9">{{ $transfer->account_number }}</dd>
-                                            </dl>
-                                        @endif
+
+                                        <dl class="row">
+                                            <dt class="col-sm-3">Bank name:</dt>
+                                            <dd class="col-sm-9">{{ $transfer->bank_name }}</dd>
+                                            <dt class="col-sm-3">Account name:</dt>
+                                            <dd class="col-sm-9">{{ $transfer->account_name }}</dd>
+                                            <dt class="col-sm-3">Account number:</dt>
+                                            <dd class="col-sm-9">{{ $transfer->account_number }}</dd>
+                                        </dl>
 
                                     </div>
                                     <div class="card-footer">

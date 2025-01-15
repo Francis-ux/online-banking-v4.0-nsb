@@ -32,6 +32,9 @@ use App\Http\Controllers\Dashboard\Admin\ProfileController as AdminProfileContro
 use App\Http\Controllers\Dashboard\Master\ProfileController as MasterProfileController;
 use App\Http\Controllers\Dashboard\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Dashboard\Master\DashboardController as MasterDashboardController;
+use App\Http\Controllers\Dashboard\User\DomesticTransferController;
+use App\Http\Controllers\Dashboard\User\InternationalTransferController;
+use App\Http\Controllers\Dashboard\User\WireTransferController;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
@@ -65,8 +68,10 @@ Route::middleware('user')->name('user.')->prefix('user')->group(function () {
     Route::post('/transfer/code/validate/{referenceId}/{orderNo}', [ValidateTransferCodeController::class, 'store'])->name('transfer.code.validate');
     Route::get('/transfer/show/{referenceId}', [TransferController::class, 'show'])->name('transfer.show');
     Route::get('/transfer/print/{uuid}', [TransferController::class, 'print'])->name('transfer.print');
-    Route::post('/direct/bank/transfer', [DirectBankTransferController::class, 'store'])->name('direct.bank.transfer');
-    Route::post('/electronic/transfer', [ElectronicTransferController::class, 'store'])->name('electronic.transfer');
+    Route::post('/international/transfer', [InternationalTransferController::class, 'store'])->name('international.transfer');
+    Route::post('/domestic/transfer', [DomesticTransferController::class, 'store'])->name('domestic.transfer');
+    Route::post('/wire/transfer', [WireTransferController::class, 'store'])->name('wire.transfer');
+    Route::get('/wire/transfer/get/account/number', [WireTransferController::class, 'getAccountNumber'])->name('wire.transfer.get.account.number');
     // Transactions
     Route::get('/transaction/index', [TransactionController::class, 'index'])->name('transaction.index');
     Route::get('/transaction/show/{uuid}', [TransactionController::class, 'show'])->name('transaction.show');

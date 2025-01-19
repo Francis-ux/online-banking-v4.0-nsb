@@ -94,7 +94,7 @@
 
                                             <div class="form-group">
                                                 <label for="message">Message</label>
-                                                <textarea name="message" id="message" cols="30" rows="10" class="form-control">{{ $transfer->message }}</textarea>
+                                                <textarea required name="message" id="message" cols="30" rows="10" class="form-control">{{ $transfer->message }}</textarea>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>

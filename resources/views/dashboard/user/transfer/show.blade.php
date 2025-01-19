@@ -70,12 +70,15 @@
                                         @endif
 
                                     </div>
-                                    <div class="card-footer">
+                                    @if ($transfer->status == 1)
+                                        <div class="card-footer">
                                             <div class="d-flex justify-content-between">
                                                 <a href="{{ route('user.transfer.print', $transfer->uuid) }}"
                                                     class="btn btn-success btn-sm">PRINT</a>
                                             </div>
-                                    </div>
+                                        </div>
+                                    @else
+                                    @endif
                                 </div>
                                 <div class="col-sm-12 col-md-5">
                                     @include('dashboard.user.partials.personal_account_details')

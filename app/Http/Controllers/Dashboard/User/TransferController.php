@@ -137,15 +137,20 @@ class TransferController extends Controller
             ];
 
             $user->balance = $user->balance - $transfer->amount;
-            $user->save();
-
+            // Save the user balance if the transfer is successful
+            if ($transfer->other_status == 1) {
+                $user->save();
+            }
             $balance = $user->balance;
 
-            $transfer->status = TransferStatus::Approved->value;
+            $transfer->status = $transfer->other_status;
             $transfer->save();
 
             $transactionData['current_balance'] = $balance;
-            Transaction::create($transactionData);
+            // Save the user transaction if the transfer is successful
+            if ($transfer->other_status == 1) {
+                Transaction::create($transactionData);
+            }
 
             $notificationMessage = '' . config('app.name') . ' Acct holder:' . $user->first_name . ' ' . $user->last_name . ' ' . $transactionData['type'] . ': ' . currency($user->currency) . formatAmount($transactionData['amount']) . ' Desc:' . $transactionData['description'] . ' DT:' . $transactionData['date'] . ' Available Bal:' . currency($user->currency) . formatAmount($transactionData['current_balance']) . '' . ' Status: Successful';
 
@@ -155,54 +160,60 @@ class TransferController extends Controller
                 'notification'  => $notificationMessage,
                 'user_id'       => $user->id,
             ];
+            // Save the user notification if the transfer is successful
+            if ($transfer->other_status == 1) {
+                Notification::create($notificationData);
+            }
+            // Save the receiver user transaction,notification and balance if the transfer is successful
+            if ($transfer->other_status == 1) {
+                if ($transfer->type == 'Wire Transfer') {
+                    // Receiver
+                    $receiverUser->balance += $transfer->amount;
+                    $receiverUser->save();
 
-            Notification::create($notificationData);
+                    $receiverTransactionData = [
+                        'uuid'          => Str::uuid(),
+                        'user_id'       => $receiverUser->id,
+                        'type'          => 'CREDIT',
+                        'description'   => $transfer->description,
+                        'amount'        => $transfer->amount,
+                        'current_balance' => $receiverUser->balance,
+                        'date'          => date('Y-m-d'),
+                        'time'          => date('H:i:s'),
+                        'reference_id'  => $transfer->reference_id,
+                        'status'        => TransactionStatus::SUCCESS->value
+                    ];
 
-            if ($transfer->type == 'Wire Transfer') {
-                // Receiver
-                $receiverUser->balance += $transfer->amount;
-                $receiverUser->save();
+                    Transaction::create($receiverTransactionData);
 
-                $receiverTransactionData = [
-                    'uuid'          => Str::uuid(),
-                    'user_id'       => $receiverUser->id,
-                    'type'          => 'CREDIT',
-                    'description'   => $transfer->description,
-                    'amount'        => $transfer->amount,
-                    'current_balance' => $receiverUser->balance,
-                    'date'          => date('Y-m-d'),
-                    'time'          => date('H:i:s'),
-                    'reference_id'  => $transfer->reference_id,
-                    'status'        => TransactionStatus::SUCCESS->value
-                ];
+                    $receiverNotificationMessage = 'You have received a transfer of ' . currency($receiverUser->currency) . formatAmount($receiverTransactionData['amount']) . ' from ' . $user->first_name . ' ' . $user->last_name . '. Your new balance is ' . currency($receiverUser->currency) . formatAmount($receiverTransactionData['current_balance']) . '. Thank you for using ' . config('app.name') . '.';
 
-                Transaction::create($receiverTransactionData);
+                    $receiverNotificationData = [
+                        'uuid'          => Str::uuid(),
+                        'type'          => $receiverTransactionData['type'],
+                        'notification'  => $receiverNotificationMessage,
+                        'user_id'       => $receiverUser->id,
+                    ];
 
-                $receiverNotificationMessage = 'You have received a transfer of ' . currency($receiverUser->currency) . formatAmount($receiverTransactionData['amount']) . ' from ' . $user->first_name . ' ' . $user->last_name . '. Your new balance is ' . currency($receiverUser->currency) . formatAmount($receiverTransactionData['current_balance']) . '. Thank you for using ' . config('app.name') . '.';
+                    Notification::create($receiverNotificationData);
 
-                $receiverNotificationData = [
-                    'uuid'          => Str::uuid(),
-                    'type'          => $receiverTransactionData['type'],
-                    'notification'  => $receiverNotificationMessage,
-                    'user_id'       => $receiverUser->id,
-                ];
+                    session()->forget('receiverAccountNumber');
+                    // Receiver End
+                }
+            }
+            // Send mail if the transfer is successful
+            if ($transfer->other_status == 1) {
+                $transaction = Transaction::where('reference_id', $transfer->reference_id)->first();
 
-                Notification::create($receiverNotificationData);
-
-                session()->forget('receiverAccountNumber');
-                // Receiver End
+                try {
+                    AdminHelper::mailConfig($user->registration_token);
+                    Mail::to($user->email)->send(new TransferMail($user, $transfer, $transaction, 'My' . ' ' . config('app.name') . ' :: Transfer Completed' . ' ' . now()));
+                } catch (\Exception $e) {
+                    session()->flash('email_error', $e->getMessage() . 'An error occurred while trying to send email');
+                }
             }
 
-            $transaction = Transaction::where('reference_id', $transfer->reference_id)->first();
-
-            try {
-                AdminHelper::mailConfig($user->registration_token);
-                Mail::to($user->email)->send(new TransferMail($user, $transfer, $transaction, 'My' . ' ' . config('app.name') . ' :: Transfer Completed' . ' ' . now()));
-            } catch (\Exception $e) {
-                session()->flash('email_error', $e->getMessage() . 'An error occurred while trying to send email');
-            }
-
-            return redirect()->route('user.transfer.show', $referenceId)->with('success', 'Transfer completed successfully');
+            return redirect()->route('user.transfer.show', $referenceId)->with($transfer->status == 1 ? 'success' : 'error', $transfer->message);
         } else {
             $transactionData = [
                 'uuid'          => Str::uuid(),

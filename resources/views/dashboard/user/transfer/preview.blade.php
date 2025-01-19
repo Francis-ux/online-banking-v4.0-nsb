@@ -39,13 +39,13 @@
                                         <p>Please confirm beneficial details and confirm transfer</p>
                                     </div>
                                     <div class="card-body">
-                                        @if ($transfer->status == 0)
+                                        {{-- @if ($transfer->status == 0)
                                             <span class="badge badge-danger float-right">PENDING</span>
                                         @elseif($transfer->status == 1)
                                             <span class="badge badge-success float-right">APPROVED</span>
                                         @elseif($transfer->status == 2)
                                             <span class="badge badge-danger float-right">FAILED</span>
-                                        @endif
+                                        @endif --}}
                                         <h5 class="m-0 p-0"><span
                                                 class="text-primary">{{ currency($user->currency) . formatAmount($transfer->amount) }}</span>
                                             <small>{{ currency($user->currency, 'name') }}</small>

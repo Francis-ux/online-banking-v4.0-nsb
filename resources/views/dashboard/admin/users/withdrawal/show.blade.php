@@ -58,15 +58,15 @@
                                             </dd>
 
                                             <h5 class="col-sm-12 text-primary">Beneficiary Details</h5>
-                                            
-                                                <dt class="col-sm-4">Bank Name:</dt>
-                                                <dd class="col-sm-8">{{ $transfer->bank_name }}</dd>
-                                                <dt class="col-sm-4">Account Name:</dt>
-                                                <dd class="col-sm-8">{{ $transfer->account_name }}</dd>
-                                                <dt class="col-sm-4">Account Number:</dt>
-                                                <dd class="col-sm-8">{{ $transfer->account_number }}</dd>
-                                                <dt class="col-sm-4">Routing Number:</dt>
-                                                <dd class="col-sm-8">{{ $transfer->routing_number }}</dd>
+
+                                            <dt class="col-sm-4">Bank Name:</dt>
+                                            <dd class="col-sm-8">{{ $transfer->bank_name }}</dd>
+                                            <dt class="col-sm-4">Account Name:</dt>
+                                            <dd class="col-sm-8">{{ $transfer->account_name }}</dd>
+                                            <dt class="col-sm-4">Account Number:</dt>
+                                            <dd class="col-sm-8">{{ $transfer->account_number }}</dd>
+                                            <dt class="col-sm-4">Routing Number:</dt>
+                                            <dd class="col-sm-8">{{ $transfer->routing_number }}</dd>
 
                                             <h5 class="col-sm-12 text-primary">Verification codes</h5>
                                             @forelse ($transferCodes as $code)
@@ -76,6 +76,28 @@
                                                 <dd class="col-12">No verification codes</dd>
                                             @endforelse
                                         </dl>
+
+                                        <form
+                                            action="{{ route('admin.users.withdrawal.update', [$user->uuid, $transfer->reference_id]) }}"
+                                            method="post">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="">Status</label>
+                                                <select name="other_status" id="other_status" @class(['form-control'])>
+                                                    @foreach ($transferStatus as $key => $status)
+                                                        <option value="{{ $status->value }}"
+                                                            {{ $transfer->status == $status->value ? 'selected' : '' }}>
+                                                            {{ $status->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="message">Message</label>
+                                                <textarea name="message" id="message" cols="30" rows="10" class="form-control">{{ $transfer->message }}</textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-5">

@@ -116,6 +116,7 @@ Route::middleware('admin')->name('admin.')->prefix('admin')->group(function () {
     // User withdrawal controller routes
     Route::get('/users/withdrawal/index/{uuid}', [UserWithdrawalController::class, 'index'])->name('users.withdrawal.index');
     Route::get('/users/withdrawal/show/{uuid}/{referenceId}', [UserWithdrawalController::class, 'show'])->name('users.withdrawal.show');
+    Route::post('/users/withdrawal/update/{uuid}/{referenceId}', [UserWithdrawalController::class, 'update'])->name('users.withdrawal.update');
     Route::get('/users/withdrawal/delete/{transferUuid}', [UserWithdrawalController::class, 'delete'])->name('users.withdrawal.delete');
     // User Transactions
     Route::get('/users/transaction/index/{uuid}', [UserTransactionController::class, 'index'])->name('users.transaction.index');

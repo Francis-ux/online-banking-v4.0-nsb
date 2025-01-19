@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('reference_id');
             $table->string('type');
             $table->boolean('status')->default(0);
+            $table->boolean('other_status')->nullable();
+            $table->longText('message')->nullable();
             $table->timestamps();
         });
     }

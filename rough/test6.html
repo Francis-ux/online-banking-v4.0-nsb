@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .transaction-container {
+            width: 400px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+        }
+
+        .transaction-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+        }
+
+        .transaction-header h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .download-button,
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .transaction-details,
+        .beneficiary-details {
+            margin-bottom: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .detail-row strong {
+            font-weight: 600;
+        }
+
+        .highlight-credit {
+            color: #4caf50;
+            background: #e8f5e9;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .highlight-success {
+            color: #4caf50;
+            background: #e8f5e9;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .beneficiary-details h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="transaction-container">
+        <div class="transaction-header">
+            <h2>Transaction Details</h2>
+            <button class="download-button">&#8681;</button>
+            <button class="close-button">&times;</button>
+        </div>
+        <div class="transaction-details">
+            <div class="detail-row"><span>Transaction ID</span> <strong>TRAREF00022467094</strong></div>
+            <div class="detail-row"><span>Payment Amount</span> <strong>&#8377; 1.00</strong></div>
+            <div class="detail-row"><span>Transaction Type</span> <strong class="highlight-credit">CREDIT</strong></div>
+            <div class="detail-row"><span>UTR</span> <strong>414115487797</strong></div>
+            <div class="detail-row"><span>Mode</span> <strong>IMPS</strong></div>
+            <div class="detail-row"><span>Status</span> <strong class="highlight-success">SUCCESS</strong></div>
+            <div class="detail-row"><span>Date/Time</span> <strong>May 20, 3:34 PM</strong></div>
+            <div class="detail-row"><span>Description</span> <strong>Transaction Success</strong></div>
+        </div>
+        <div class="beneficiary-details">
+            <h3>Beneficiary Detail</h3>
+            <div class="detail-row"><span>Name as per bank</span> <strong>CHASEOUTTECHNOLOGIE</strong></div>
+            <div class="detail-row"><span>Beneficiary Name</span> <strong>CHASEOUTTECHNOLOGIE</strong></div>
+            <div class="detail-row"><span>Account Number</span> <strong>922020029892326</strong></div>
+            <div class="detail-row"><span>Beneficiary Type</span> <strong>-</strong></div>
+        </div>
+    </div>
+</body>
+
+</html>

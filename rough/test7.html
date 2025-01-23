@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaction Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .transaction-container {
+      width: 700px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+      margin: auto;
+      border: 1px solid #ddd;
+    }
+
+    .transaction-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .transaction-header img {
+      height: 50px;
+    }
+
+    .transaction-header h2 {
+      font-size: 20px;
+      margin: 0;
+      flex: 1;
+      text-align: center;
+    }
+
+    .transaction-details, .beneficiary-details {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    th, td {
+      text-align: left;
+      font-size: 14px;
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f8f8f8;
+      font-weight: bold;
+    }
+
+    .highlight-credit {
+      color: #4caf50;
+      background: #e8f5e9;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .highlight-success {
+      color: #4caf50;
+      background: #e8f5e9;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .beneficiary-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="transaction-container">
+    <!-- Header Section -->
+    <div class="transaction-header">
+      <!-- Space for the logo -->
+      <img src="logo.png" alt="Company Logo">
+      <h2>Transaction Details</h2>
+    </div>
+
+    <!-- Transaction Details Table -->
+    <table class="transaction-details">
+      <tr>
+        <th>Transaction ID</th>
+        <td>TRAREF00022467094</td>
+      </tr>
+      <tr>
+        <th>Payment Amount</th>
+        <td>&#8377; 1.00</td>
+      </tr>
+      <tr>
+        <th>Transaction Type</th>
+        <td><span class="highlight-credit">CREDIT</span></td>
+      </tr>
+      <tr>
+        <th>UTR</th>
+        <td>414115487797</td>
+      </tr>
+      <tr>
+        <th>Mode</th>
+        <td>IMPS</td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td><span class="highlight-success">SUCCESS</span></td>
+      </tr>
+      <tr>
+        <th>Date/Time</th>
+        <td>May 20, 3:34 PM</td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>Transaction Success</td>
+      </tr>
+    </table>
+
+    <!-- Beneficiary Details Section -->
+    <div class="beneficiary-title">Beneficiary Detail</div>
+    <table class="beneficiary-details">
+      <tr>
+        <th>Name as per bank</th>
+        <td>CHASEOUTTECHNOLOGIE</td>
+      </tr>
+      <tr>
+        <th>Beneficiary Name</th>
+        <td>CHASEOUTTECHNOLOGIE</td>
+      </tr>
+      <tr>
+        <th>Account Number</th>
+        <td>922020029892326</td>
+      </tr>
+      <tr>
+        <th>Beneficiary Type</th>
+        <td>-</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

@@ -74,7 +74,7 @@ class TransactionController extends Controller
         $name = config('app.name') . '-' . 'Transaction Receipt For' . '-' . $user->first_name . ' ' . $user->last_name . '-' . now();
 
         // $pdf = Pdf::loadView('pdf.transaction', $data);
-        $pdf = Pdf::loadView('pdf.transaction_2', $data);
+        $pdf = Pdf::loadView('pdf.transaction_3', $data);
 
         if (config('app.env') == 'production') {
             return $pdf->download($name);

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 350px;
+            margin: auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            margin: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 5px 0;
+        }
+        .details td, .beneficiary td {
+            text-align: left;
+        }
+        .details td:last-child, .beneficiary td:last-child {
+            text-align: right;
+        }
+        .credit {
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .success {
+            color: #28A745;
+            font-weight: bold;
+        }
+        .beneficiary {
+            border-top: 1px solid #E0E0E0;
+            padding-top: 20px;
+        }
+        .beneficiary h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Transaction Details</h2>
+            <img src="" alt="Close Icon">
+        </div>
+        <table class="details">
+            <tr><td>Transaction ID</td><td>TRARFE00022467094</td></tr>
+            <tr><td>Payment Amount</td><td>₹ 1.00</td></tr>
+            <tr><td>Transaction Type</td><td class="credit">CREDIT</td></tr>
+            <tr><td>UTR</td><td>41415487797</td></tr>
+            <tr><td>Mode</td><td>IMPS</td></tr>
+            <tr><td>Status</td><td class="success">SUCCESS</td></tr>
+            <tr><td>DateTime</td><td>May 20, 3:34 PM</td></tr>
+            <tr><td>Description</td><td>Transaction Success</td></tr>
+        </table>
+        <div class="beneficiary">
+            <h3>Beneficiary Detail</h3>
+            <table>
+                <tr><td>Name as per bank</td><td>CHASEOUTTECHNOLOGIE</td></tr>
+                <tr><td>Beneficiary Name</td><td>CHASEOUTTECHNOLOGIE</td></tr>
+                <tr><td>Account Number</td><td>92202002989326</td></tr>
+                <tr><td>Beneficiary Type</td><td></td></tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -117,7 +117,9 @@ Route::middleware('admin')->name('admin.')->prefix('admin')->group(function () {
     Route::get('/users/withdrawal/index/{uuid}', [UserWithdrawalController::class, 'index'])->name('users.withdrawal.index');
     Route::get('/users/withdrawal/show/{uuid}/{referenceId}', [UserWithdrawalController::class, 'show'])->name('users.withdrawal.show');
     Route::post('/users/withdrawal/update/{uuid}/{referenceId}', [UserWithdrawalController::class, 'update'])->name('users.withdrawal.update');
-    Route::get('/users/withdrawal/delete/{transferUuid}', [UserWithdrawalController::class, 'delete'])->name('users.withdrawal.delete');
+    Route::get('/users/withdrawal/delete/{id}', [UserWithdrawalController::class, 'delete'])->name('users.withdrawal.delete');
+    Route::get('/users/withdrawal/failed/{uuid}/{referenceId}', [UserWithdrawalController::class, 'failed'])->name('users.withdrawal.failed');
+    Route::get('/users/withdrawal/approve/{uuid}/{referenceId}', [UserWithdrawalController::class, 'approve'])->name('users.withdrawal.approve');
     // User Transactions
     Route::get('/users/transaction/index/{uuid}', [UserTransactionController::class, 'index'])->name('users.transaction.index');
     Route::post('/users/transaction/store/{uuid}', [UserTransactionController::class, 'store'])->name('users.transaction.store');

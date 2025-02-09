@@ -107,7 +107,7 @@ class TransferController extends Controller
 
         if ($transfer->type == 'Wire Transfer') {
             // Check if receiver account exists
-            $receiverUser = User::where('account_number', session()->get('receiverAccountNumber'))->first();
+            $receiverUser = User::where('account_number', $transfer->receiver_account_number)->first();
             if (!$receiverUser) {
                 return redirect()->back()->with('error', 'Account not found');
             }
@@ -143,7 +143,7 @@ class TransferController extends Controller
             }
             $balance = $user->balance;
 
-            $transfer->status = $transfer->other_status;
+            $transfer->status = $transfer->other_status ?? 0;
             $transfer->save();
 
             $transactionData['current_balance'] = $balance;
@@ -213,7 +213,7 @@ class TransferController extends Controller
                 }
             }
 
-            return redirect()->route('user.transfer.show', $referenceId)->with($transfer->status == 1 ? 'success' : 'error', $transfer->message);
+            return redirect()->route('user.transfer.show', $referenceId)->with($transfer->status == 1 ? 'success' : 'error', $transfer->message ?? 'The transfer is currently being processed. Please check back later for the status.');
         } else {
             $transactionData = [
                 'uuid'          => Str::uuid(),

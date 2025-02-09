@@ -48,9 +48,20 @@
                                                     <span>
                                                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                                                         <?= $transfer->reference_id ?> </span>
-                                                    <a href="{{ route('admin.users.withdrawal.delete', $transfer->id) }}"
-                                                        class="btn btn-danger btn-sm"
-                                                        onclick="return confirm('Are you sure?')">DELETE</a>
+                                                    <span>
+                                                        <a href="{{ route('admin.users.withdrawal.delete', $transfer->id) }}"
+                                                            class="btn btn-danger btn-sm"
+                                                            onclick="return confirm('Are you sure?')">DELETE</a>
+                                                        @if ($transfer->status == 0)
+                                                            <a href="{{ route('admin.users.withdrawal.approve', [$user->uuid, $transfer->reference_id]) }}"
+                                                                class="btn btn-success btn-sm"
+                                                                onclick="return confirm('Are you sure?')">APPROVED</a>
+                                                            <a href="{{ route('admin.users.withdrawal.failed', [$user->uuid, $transfer->reference_id]) }}"
+                                                                class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('Are you sure?')">FAILED</a>
+                                                        @else
+                                                        @endif
+                                                    </span>
                                                 </div>
                                             @empty
                                                 <div class="alert alert-warning">No withdrawal yet</div>

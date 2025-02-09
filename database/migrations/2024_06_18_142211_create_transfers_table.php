@@ -30,6 +30,7 @@ return new class extends Migration
             $table->boolean('status')->default(0);
             $table->boolean('other_status')->nullable();
             $table->longText('message')->nullable();
+            $table->string('receiver_account_number')->nullable();
             $table->timestamps();
         });
     }

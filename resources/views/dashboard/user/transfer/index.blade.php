@@ -39,9 +39,7 @@
                                     <div class="card-body scroll-card-body">
                                         <div class="list-group">
                                             @forelse ($transfers as $transfer)
-                                                <a href="@if ($transfer->status == 0) {{ route('user.transfer.preview', $transfer->reference_id) }}
-                                                @else
-                                                {{ route('user.transfer.show', $transfer->reference_id) }} @endif"
+                                                <a href="{{ route('user.transfer.show', $transfer->reference_id) }}"
                                                     class="list-group-item list-group-item-action list-group-item-default">
                                                     @if ($transfer->status == 0)
                                                         <span class="badge badge-danger float-right">PENDING</span>

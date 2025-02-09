@@ -98,6 +98,7 @@ class WireTransferController extends Controller
             'description'       => $request->description,
             'reference_id'      => $referenceId,
             'type'              => 'Wire Transfer',
+            'receiver_account_number' => $request->account_number
         ];
 
         Transfer::create($data);
